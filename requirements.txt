@@ -1,0 +1,23 @@
+# --- Core multi-agent orchestration ---
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0          # OpenAI-compatible client -> Groq / xAI Grok / Ollama / OpenAI
+
+# --- Document ingestion ---
+pdfplumber>=0.11.0               # text-PDF extraction (no OCR needed for the case PDFs)
+pymupdf>=1.24.0                  # fallback PDF parser
+
+# --- Data contracts & money ---
+pydantic>=2.7.0
+
+# --- UX / observability ---
+rich>=13.7.0                     # colored CLI panels + tables
+python-dotenv>=1.0.0
+
+# --- API for the web dashboard ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# --- Tests ---
+pytest>=8.0.0

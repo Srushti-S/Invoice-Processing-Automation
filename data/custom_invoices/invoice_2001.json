@@ -1,0 +1,21 @@
+{
+  "invoice_number": "INV-2001",
+  "vendor": {
+    "name": "Apex Components Ltd.",
+    "address": "88 Industrial Pkwy, Cleveland, OH 44101"
+  },
+  "date": "2026-02-01",
+  "due_date": "2026-03-01",
+  "line_items": [
+    {"item": "WidgetA", "quantity": 12, "unit_price": 250.00},
+    {"item": "WidgetB", "quantity": 8, "unit_price": 500.00},
+    {"item": "GadgetX", "quantity": 4, "unit_price": 750.00}
+  ],
+  "subtotal": 10000.00,
+  "tax_rate": 0.05,
+  "tax_amount": 500.00,
+  "total": 10500.00,
+  "currency": "USD",
+  "payment_terms": "Net 30",
+  "notes": "Custom case: clean + fully in stock, but >$10K. Tests the >$10K 'additional scrutiny' rule -> reflection escalates APPROVE to human review."
+}
