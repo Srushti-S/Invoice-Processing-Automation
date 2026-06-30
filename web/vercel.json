@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://galatiq-invoice-api.onrender.com/api/:path*" }
+  ]
+}
