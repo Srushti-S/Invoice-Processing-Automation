@@ -9,6 +9,14 @@ type Props = {
 
 export function OutcomeDetail({ result, onOverride }: Props) {
   const inv = result.invoice
+
+  function confirmOverride(decision: string) {
+    const message = decision === 'APPROVE'
+      ? `Force approval and pay ${money(inv.amount, inv.currency)} to ${inv.vendor ?? 'this vendor'}?`
+      : 'Override this decision to Reject?'
+    if (window.confirm(message)) onOverride(decision)
+  }
+
   return (
     <DetailSection title="Payment / outcome">
       {result.status === 'OK' && (
@@ -33,12 +41,12 @@ export function OutcomeDetail({ result, onOverride }: Props) {
         <div className="mt-3 flex items-center gap-2">
           <span className="text-xs text-muted">Human override:</span>
           <button
-            onClick={() => onOverride('APPROVE')}
+            onClick={() => confirmOverride('APPROVE')}
             className="rounded-sm bg-accent px-3 py-1 text-xs font-medium text-white">
             Approve and pay
           </button>
           <button
-            onClick={() => onOverride('REJECT')}
+            onClick={() => confirmOverride('REJECT')}
             className="rounded-sm border border-line px-3 py-1 text-xs text-ink hover:border-muted">
             Reject
           </button>

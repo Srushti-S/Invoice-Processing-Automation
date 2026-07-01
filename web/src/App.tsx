@@ -24,10 +24,24 @@ export default function App() {
         />
       </header>
 
+      {pipeline.error && (
+        <div className="mt-4 border-l-2 border-reject bg-reject/5 px-3 py-2 text-sm text-reject">
+          Couldn't reach the API ({pipeline.error}). Make sure the backend is running on port 8000.
+        </div>
+      )}
+
       {pipeline.summary && <SummaryBar summary={pipeline.summary} />}
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_240px]">
-        <ResultsTable results={pipeline.results} onSelect={pipeline.setSelected} />
+        <div>
+          {pipeline.loading && pipeline.results.length === 0 ? (
+            <p className="py-10 text-sm text-muted">Loading…</p>
+          ) : pipeline.results.length > 0 ? (
+            <ResultsTable results={pipeline.results} onSelect={pipeline.setSelected} />
+          ) : (
+            <p className="py-10 text-sm text-muted">No results.</p>
+          )}
+        </div>
         <Sidebar inventory={pipeline.inventory} fraudBlocked={pipeline.fraudBlocked} />
       </div>
 

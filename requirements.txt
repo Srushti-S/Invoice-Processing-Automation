@@ -1,15 +1,15 @@
 # --- Core multi-agent orchestration ---
-langgraph>=0.2.0
-langchain>=0.3.0
-langchain-core>=0.3.0
-langchain-openai>=0.2.0          # OpenAI-compatible client -> Groq / xAI Grok / Ollama / OpenAI
+langgraph>=0.2.0,<2.0.0
+langchain>=0.3.0,<2.0.0
+langchain-core>=0.3.0,<2.0.0
+langchain-openai>=0.2.0,<2.0.0   # OpenAI-compatible client -> Groq / xAI Grok / Ollama / OpenAI
 
 # --- Document ingestion ---
 pdfplumber>=0.11.0               # text-PDF extraction (no OCR needed for the case PDFs)
 pymupdf>=1.24.0                  # fallback PDF parser
 
 # --- Data contracts & money ---
-pydantic>=2.7.0
+pydantic>=2.7.0,<3.0.0
 
 # --- UX / observability ---
 rich>=13.7.0                     # colored CLI panels + tables

@@ -12,29 +12,42 @@ export function usePipeline() {
   const [inventory, setInventory] = useState<InventoryItem[]>([])
   const [selected, setSelected] = useState<Result | null>(null)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function runBatch(nextFolder = folder, nextProvider = provider) {
     setLoading(true)
+    setError(null)
     try {
       const [out, inv] = await Promise.all([api.batch(nextFolder, nextProvider), api.inventory()])
       setResults(out.results)
       setSummary(out.summary)
       setInventory(inv)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
     } finally {
       setLoading(false)
     }
   }
 
   async function reset() {
-    await api.reset()
-    await runBatch()
+    setError(null)
+    try {
+      await api.reset()
+      await runBatch()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
+    }
   }
 
   async function override(decision: string) {
     if (!selected?.invoice.source_path) return
-    const updated = await api.override(selected.invoice.source_path, decision, provider, 'dashboard override')
-    setResults((rows) => rows.map((r) => (r.invoice.source_path === updated.invoice.source_path ? updated : r)))
-    setSelected(updated)
+    try {
+      const updated = await api.override(selected.invoice.source_path, decision, provider, 'dashboard override')
+      setResults((rows) => rows.map((r) => (r.invoice.source_path === updated.invoice.source_path ? updated : r)))
+      setSelected(updated)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
+    }
   }
 
   function changeFolder(next: string) {
@@ -52,7 +65,7 @@ export function usePipeline() {
     if (didInit.current) return
     didInit.current = true
     api.providers().then(setProviders).catch(() => {})
-    api.reset().finally(() => runBatch('sample', 'mock'))
+    api.reset().catch(() => {}).finally(() => runBatch('sample', 'mock'))
   }, [])
 
   const fraudBlocked = useMemo(
@@ -69,6 +82,7 @@ export function usePipeline() {
     inventory,
     selected,
     loading,
+    error,
     fraudBlocked,
     setSelected,
     runBatch,

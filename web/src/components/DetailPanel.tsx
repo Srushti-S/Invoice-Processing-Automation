@@ -25,7 +25,7 @@ export function DetailPanel({ result, onClose, onOverride }: Props) {
           </div>
           <div className="flex items-center gap-4">
             <DecisionLabel status={result.status} />
-            <button onClick={onClose} className="text-sm text-muted hover:text-ink">Close</button>
+            <button onClick={onClose} className="rounded-sm border border-line px-2.5 py-1 text-sm text-ink hover:border-muted">Close</button>
           </div>
         </div>
         <div className="space-y-4">
