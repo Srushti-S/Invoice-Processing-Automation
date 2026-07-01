@@ -41,6 +41,11 @@ data. Some of what it catches:
 | INV-1004 | The same invoice submitted twice in different formats | Paid once, duplicate blocked |
 | INV-1009 | Empty vendor, negative quantity, negative total | Rejected |
 
+## Requirements
+
+- Python 3.10+ (built on 3.13)
+- Node 20+ for the dashboard only; the CLI needs no Node
+
 ## Running it
 
 ```bash
