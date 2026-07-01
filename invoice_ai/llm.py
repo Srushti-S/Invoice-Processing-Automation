@@ -166,6 +166,7 @@ class LLMReasoner(Reasoner):
 
         @tool
         def check_inventory(item: str) -> str:
+            """Look up warehouse stock for an item; returns its stock count and whether it is in the catalog."""
             r = _db.query_inventory(item, db_path or _db.DEFAULT_DB)
             out = f"{item}: stock={r['stock']}, in_catalog={r['found']}"
             tool_log.append(f"check_inventory({item!r}) -> {out}")
@@ -173,6 +174,7 @@ class LLMReasoner(Reasoner):
 
         @tool
         def recompute_total() -> str:
+            """Recompute this invoice's total from subtotal + tax + fees and compare it to the stated total."""
             out = (f"recomputed={getattr(validation, 'recomputed_total', None)}, "
                    f"stated={getattr(validation, 'stated_total', None)}, "
                    f"delta={getattr(validation, 'total_delta', None)}")

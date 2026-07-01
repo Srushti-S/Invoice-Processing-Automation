@@ -146,3 +146,11 @@ def test_concurrent_claim_grants_single_winner(settings):
     assert first is True and second is False
     held = db.find_paid("INV-RACE", settings.db_path)
     assert held and held["payment_id"] == "PAY-A"
+
+
+def test_llm_reasoner_tools_build_and_degrade():
+    from invoice_ai.llm import LLMReasoner
+    reasoner = LLMReasoner("ollama")
+    out = reasoner.assess_fraud({"vendor": "Acme", "amount": "100"})
+    assert isinstance(out, dict)
+    assert "extra_risk" in out and "tool_log" in out
