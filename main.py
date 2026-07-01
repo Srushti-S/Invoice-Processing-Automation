@@ -141,7 +141,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Galatiq multi-agent invoice processor")
     ap.add_argument("--invoice_path", help="process a single invoice file")
     ap.add_argument("--batch", help="process every invoice in a folder")
-    ap.add_argument("--provider", help="llm provider: mock|groq|grok|ollama|openai")
+    ap.add_argument("--provider", help="llm provider: mock|grok|groq|gemini|cerebras|mistral|ollama")
     ap.add_argument("--mock-llm", action="store_true", help="force the offline mock reasoner")
     ap.add_argument("--db", default="inventory.db", help="inventory SQLite path")
     ap.add_argument("--threshold", type=str, help="approval scrutiny threshold (USD)")
